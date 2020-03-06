@@ -1,46 +1,41 @@
 package com.example.leetcode.question;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.Arrays;
 
 /**
+ * Question16
+ *
  * @author shentao
+ * @date 2020/2/21
  */
 public class Question16 {
-
-    /*public static int trailingZeroes(int n) {
-        if (n <= 0) {
-            return 0;
-        }
-        BigDecimal i = factorial(new BigDecimal(n));
-        System.out.println(i);
-        char[] chars = i.toString().toCharArray();
-        int result = chars.length - 1;
-        while (chars[result] == '0') {
-            result--;
-        }
-        return chars.length - result - 1;
-    }
-
-    private static BigDecimal factorial(BigDecimal i) {
-        if (i.compareTo(new BigDecimal(1)) == 0) {
-            return new BigDecimal(1);
-        } else {
-            return i.multiply(factorial(i.subtract(BigDecimal.valueOf(1))));
-        }
-    }*/
-
-    public static int trailingZeroes(int n) {
+    public static int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
         int result = 0;
-        while (n >= 5) {
-            n /= 5;
-            result += n;
+        int abs = Integer.MAX_VALUE;
+        for (int l = 0; l < nums.length - 1; l++) {
+            int i = l + 1, j = nums.length - 1;
+            while (i < j) {
+                int sum = nums[i] + nums[l] + nums[j];
+                int temp = Math.abs(sum - target);
+                if (temp < abs) {
+                    abs = temp;
+                    result = sum;
+                }
+                if (sum > target) {
+                    j--;
+                } else if (sum < target) {
+                    i++;
+                } else {
+                    return sum;
+                }
+            }
         }
         return result;
     }
 
     public static void main(String[] args) {
-        int zeroes = trailingZeroes(3);
-        System.out.println(zeroes);
+        int i = threeSumClosest(new int[]{0, 2, 1, -3}, 1);
+        System.out.println(i);
     }
 }
